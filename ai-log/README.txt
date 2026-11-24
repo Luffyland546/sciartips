@@ -1,2 +1,2 @@
-AI sessions for CA2 (Sciar Tips). Add your exports, share links or screenshots here.
-Include this Claude chat. Redact your email or name if you wish, and note where you did.
+claude session https://claude.ai/share/f3a2efd7-9337-466d-8d62-9eb24e72b956
+
