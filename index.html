@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Sciar Tips · Transparent Tip Distribution for Restaurant Owners</title>
+  <style>
+    :root {
+      --bg: #f8f6f1;
+      --surface: #ffffff;
+      --fg: #181715;
+      --mut: #5c574f;
+      --acc: #0b5d4b;
+      --acc-hover: #084739;
+      --acc-soft: #e6f2ef;
+      --line: #e2dcd0;
+      --shadow: 0 4px 20px rgba(24, 23, 21, 0.06);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #131210;
+        --surface: #1c1b18;
+        --fg: #f3efe6;
+        --mut: #a8a093;
+        --acc: #6bd4b6;
+        --acc-hover: #8be0c7;
+        --acc-soft: #182b26;
+        --line: #302d27;
+        --shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font: 17px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Georgia, serif;
+      background: var(--bg);
+      color: var(--fg);
+      -webkit-font-smoothing: antialiased;
+    }
+    nav {
+      background: var(--surface);
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand {
+      font-weight: 800;
+      font-size: 1.1rem;
+      letter-spacing: -0.02em;
+      color: var(--fg);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .brand span {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--acc);
+    }
+    .menu {
+      display: flex;
+      gap: 8px;
+    }
+    .menu a {
+      text-decoration: none;
+      color: var(--mut);
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: background 0.15s, color 0.15s;
+    }
+    .menu a:hover {
+      color: var(--fg);
+      background: var(--bg);
+    }
+    .menu a.active {
+      color: var(--acc);
+      background: var(--acc-soft);
+    }
+    main {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 36px 20px 48px;
+    }
+    .eyebrow {
+      display: inline-block;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--acc);
+      background: var(--acc-soft);
+      padding: 4px 10px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+    }
+    h1 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.85rem, 4vw, 2.45rem);
+      line-height: 1.18;
+      letter-spacing: -0.02em;
+      margin: 0 0 20px;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+      margin: 24px 0;
+    }
+    ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+    li {
+      margin: 0.9em 0;
+    }
+    li:first-child { margin-top: 0; }
+    li:last-child { margin-bottom: 0; }
+    sup a {
+      color: var(--acc);
+      font-weight: 700;
+      text-decoration: none;
+      padding: 0 2px;
+    }
+    .cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+    .cta a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 13px 22px;
+      border-radius: 9px;
+      background: var(--acc);
+      color: #ffffff;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+    @media (prefers-color-scheme: dark) {
+      .cta a { color: #131210; }
+    }
+    .cta a:hover { background: var(--acc-hover); }
+    .cta a.g {
+      background: transparent;
+      color: var(--acc);
+      border: 1.5px solid var(--acc);
+    }
+    .cta a.g:hover { background: var(--acc-soft); }
+    .fn {
+      color: var(--mut);
+      font-size: 0.88rem;
+      border-top: 1px solid var(--line);
+      margin-top: 40px;
+      padding-top: 18px;
+    }
+    .fn p { margin: 0.5em 0; }
+  </style>
+</head>
+<body>
+  <nav aria-label="Primary navigation">
+    <div class="nav-inner">
+      <a class="brand" href="index.html"><span></span>Sciar Tips</a>
+      <div class="menu">
+        <a href="index.html" class="active" aria-current="page">For Owners</a>
+        <a href="app.html">Staff View (Alpha)</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <span class="eyebrow">For Restaurant Owners · Alpha</span>
+    <h1>Pay your team's card tips every Monday, and let them see how it was worked out.</h1>
+
+    <div class="card">
+      <ul>
+        <li>Card tips are paid straight to staff bank accounts every Monday.<sup><a href="#n1">1</a></sup></li>
+        <li>In the 12-week Halloran's pilot, €31,754.13 of card tips went into the pool and €31,754.09 was paid out. The 4-cent gap is rounding.<sup><a href="#n2">2</a></sup></li>
+        <li>Our alpha staff view shows each person their own tips per hour and how the split rule worked, using pilot data.<sup><a href="#n3">3</a></sup></li>
+      </ul>
+    </div>
+
+    <div class="cta">
+      <a href="app.html">Open the staff view</a>
+      <a class="g" href="mailto:hello@sciar.example?subject=Sciar%20Tips%20for%20my%20restaurant">Email us: hello@sciar.example</a>
+    </div>
+
+    <footer class="fn">
+      <p id="n1">1. README.md, "The company" (pack): Sciar Tips pays card tips out to staff every Monday, to their bank accounts.</p>
+      <p id="n2">2. Card tips only. takings.csv, all 72 rows, sum of card_tips_eur = €31,754.13. payouts.csv, all 152 rows, sum of tip_payout_eur = €31,754.09. The 12.5% service charge (€9,004.69, takings.csv) is not part of the tip pool.</p>
+      <p id="n3">3. app.html in this site. It is an alpha demo on fictional pilot data.</p>
+      <p>Fictional teaching case (H9LOCHFFT, NCI). Sciar, Halloran's and all figures are invented. hello@sciar.example is an invented address.</p>
+    </footer>
+  </main>
+</body>
+</html>
