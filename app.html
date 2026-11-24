@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Sciar Tips · Staff View (Alpha Demo)</title>
+  <style>
+    :root {
+      --bg: #f8f6f1;
+      --surface: #ffffff;
+      --fg: #181715;
+      --mut: #5c574f;
+      --acc: #0b5d4b;
+      --acc-soft: #e6f2ef;
+      --line: #e2dcd0;
+      --warn-bg: #fef7e0;
+      --warn-border: #e6cf8b;
+      --shadow: 0 3px 14px rgba(24, 23, 21, 0.05);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #131210;
+        --surface: #1c1b18;
+        --fg: #f3efe6;
+        --mut: #a8a093;
+        --acc: #6bd4b6;
+        --acc-soft: #182b26;
+        --line: #302d27;
+        --warn-bg: #2e2714;
+        --warn-border: #594b22;
+        --shadow: 0 3px 14px rgba(0, 0, 0, 0.3);
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font: 17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Georgia, serif;
+      background: var(--bg);
+      color: var(--fg);
+      -webkit-font-smoothing: antialiased;
+    }
+    nav {
+      background: var(--surface);
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+    .brand {
+      font-weight: 800;
+      font-size: 1.05rem;
+      letter-spacing: -0.02em;
+      color: var(--fg);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .brand span {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--acc);
+    }
+    .menu {
+      display: flex;
+      gap: 6px;
+    }
+    .menu a {
+      text-decoration: none;
+      color: var(--mut);
+      font-weight: 600;
+      font-size: 0.92rem;
+      padding: 6px 11px;
+      border-radius: 6px;
+    }
+    .menu a:hover {
+      color: var(--fg);
+      background: var(--bg);
+    }
+    .menu a.active {
+      color: var(--acc);
+      background: var(--acc-soft);
+    }
+    main {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 16px 16px 40px;
+    }
+    h1 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.65rem;
+      margin: 0.2em 0 0.4em;
+    }
+    h2 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.22rem;
+      margin: 0 0 0.45em;
+    }
+    section {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 18px;
+      margin: 16px 0;
+      box-shadow: var(--shadow);
+    }
+    .big {
+      font-size: 2.15rem;
+      font-weight: 800;
+      color: var(--acc);
+      line-height: 1.15;
+      margin: 4px 0 8px;
+    }
+    .src {
+      font: 12.5px/1.45 ui-monospace, SFMono-Regular, Menlo, monospace;
+      color: var(--mut);
+      margin: 0.8em 0 0;
+      padding-top: 0.6em;
+      border-top: 1px dashed var(--line);
+      word-break: break-word;
+    }
+    .demo {
+      background: var(--warn-bg);
+      border: 1px solid var(--warn-border);
+      padding: 11px 14px;
+      border-radius: 9px;
+      font-size: 0.95rem;
+      margin: 12px 0;
+    }
+    select, textarea, button, input {
+      font: inherit;
+      max-width: 100%;
+    }
+    select, textarea {
+      width: 100%;
+      padding: 11px 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--bg);
+      color: var(--fg);
+    }
+    button {
+      padding: 12px 20px;
+      border-radius: 8px;
+      border: 0;
+      background: var(--acc);
+      color: #ffffff;
+      font-weight: 700;
+      min-height: 48px;
+      cursor: pointer;
+    }
+    @media (prefers-color-scheme: dark) {
+      button { color: #131210; }
+    }
+    button.ghost {
+      background: transparent;
+      color: var(--acc);
+      border: 1px solid var(--acc);
+      min-height: 38px;
+      padding: 6px 14px;
+      margin-top: 8px;
+      font-size: 0.9rem;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      font-size: 0.95rem;
+    }
+    td, th {
+      padding: 8px 6px;
+      border-bottom: 1px solid var(--line);
+      text-align: right;
+    }
+    th:first-child, td:first-child { text-align: left; }
+    .wrap { overflow-x: auto; }
+    label {
+      display: block;
+      font-weight: 600;
+      margin: 0.85em 0 0.3em;
+    }
+    .row {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      margin-top: 12px;
+    }
+    .row input {
+      margin-top: 0.3em;
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+    .c {
+      border-left: 4px solid var(--acc);
+      padding: 10px 12px;
+      margin: 10px 0;
+      border-radius: 0 8px 8px 0;
+      background: var(--bg);
+    }
+    .c p { margin: 6px 0; }
+  </style>
+</head>
+<body>
+  <nav aria-label="Primary navigation">
+    <div class="nav-inner">
+      <a class="brand" href="index.html"><span></span>Sciar Tips</a>
+      <div class="menu">
+        <a href="index.html">For Owners</a>
+        <a href="app.html" class="active" aria-current="page">Staff View (Alpha)</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <h1>Your Tip Breakdown</h1>
+    <p class="demo"><b>Alpha demo.</b> Fictional pilot data (Halloran's, 12 weeks). The picker below is only so you can test the view. In a real version each person sees only their own page.</p>
+
+    <label for="who">Demo: view as</label>
+    <select id="who"></select>
+
+    <div id="out"></div>
+
+    <section id="concern">
+      <h2>Tell us about a problem</h2>
+      <p>Short and simple is fine. You can write in any English you like.</p>
+      <p class="demo">Demo: your note is saved <b>only in this browser</b>. Nothing is sent. In a real version it would go to Sciar's product team only. <b>Not</b> to the owner or the floor manager. We chose this because a person with less power may be afraid to speak if their boss can see.</p>
+      <label for="topic">About</label>
+      <select id="topic">
+        <option>My pay</option>
+        <option>My hours</option>
+        <option>How tips are counted</option>
+        <option>Something else</option>
+      </select>
+      <label for="txt">What is wrong?</label>
+      <textarea id="txt" rows="4" placeholder="Write what happened in your own words..."></textarea>
+      <div class="row">
+        <input type="checkbox" id="named">
+        <label for="named" style="margin:0;font-weight:400">Sciar may see my name, so they can reply. (If this is off, Sciar sees "a staff member". Only you see your name.)</label>
+      </div>
+      <p><button id="send">Send</button></p>
+      <div id="list"></div>
+    </section>
+
+    <section>
+      <h2>Limits of this page</h2>
+      <p>Pay rates, wages and the law are not in the pilot data, so this page says nothing about them. The "if late hours counted" figure is a what-if. It would move money between people, so it is a choice for the owner, not a recommendation. Points in the file are rounded to 2 decimals (11 rows differ by half a cent). Payouts total 4 cents less than the pool (rounding).</p>
+    </section>
+  </main>
+
+  <script src="data/payouts.js"></script>
+  <script src="data/takings.js"></script>
+  <script>
+    const N = v => parseFloat(v), S = (a, f) => a.reduce((s, r) => s + f(r), 0);
+    const E = x => "€" + x.toLocaleString("en-IE", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const people = [...new Map(PAYOUTS.map(r => [r.staff_id, r])).values()];
+    const sel = document.getElementById("who"), out = document.getElementById("out");
+    people.forEach(p => {
+      const o = document.createElement("option");
+      o.value = p.staff_id;
+      o.textContent = `${p.first_name} (${p.role})`;
+      sel.appendChild(o);
+    });
+    sel.value = people.find(p => p.first_name === "Rafael").staff_id;
+
+    const wk = {};
+    PAYOUTS.forEach(r => {
+      const w = wk[r.week] || (wk[r.week] = { pool: N(r.week_pool_eur), all: 0 });
+      w.all += N(r.points_per_hour) * N(r.hours);
+    });
+
+    function group(role) {
+      const g = PAYOUTS.filter(r => r.role === role), n = new Set(g.map(r => r.staff_id)).size;
+      if (n < 3) return { n, hide: true };
+      const pay = S(g, r => N(r.tip_payout_eur)), ph = S(g, r => N(r.hours) - N(r.hours_after_2300));
+      return { n, pay, ph, v: pay / ph, rows: g.length };
+    }
+
+    function render() {
+      const id = sel.value, rows = PAYOUTS.filter(r => r.staff_id === id), me = rows[0];
+      const hrs = S(rows, r => N(r.hours)), late = S(rows, r => N(r.hours_after_2300)), pay = S(rows, r => N(r.tip_payout_eur)), paid = hrs - late;
+      let cf = 0;
+      rows.forEach(r => {
+        const w = wk[r.week];
+        cf += w.pool * N(r.points_per_hour) * N(r.hours) / w.all;
+      });
+      const f = `payouts.csv, staff_id = ${id}, weeks ${rows[0].week} to ${rows[rows.length - 1].week} (${rows.length} rows)`;
+      const gs = group("server"), gc = group("chef"), own = group(me.role);
+      const T = TAKINGS, sc = S(T, r => N(r.service_charge_eur)), tips = S(T, r => N(r.card_tips_eur)), scDays = T.filter(r => N(r.service_charge_eur) > 0).length;
+      const gl = (n, g) => `${n}: ${E(g.v)} per hour that counted (${g.n} people)`;
+
+      out.innerHTML = `
+<section><h2>Your tips per hour</h2><div class="big">${E(pay / hrs)}</div><p>for every hour you worked. (${E(pay / paid)} for every hour that counted.)</p>
+<p>Total tips paid to you: <b>${E(pay)}</b> for <b>${hrs}</b> hours.</p><p class="src">Source: ${f}. Sum of tip_payout_eur ÷ sum of hours. Counted hours = hours − hours_after_2300.</p></section>
+<section><h2>Hours that earned no points</h2><div class="big">${late} of ${hrs} hours</div>
+<p>You worked <b>${(100 * late / hrs).toFixed(1)}%</b> of your hours after 23:00. The rule gives no points after the till closes.</p>
+<p>What-if: if those hours counted, the same pool would have paid you about <b>${E(cf)}</b>, which is <b>${E(cf - pay)}</b> more. This is a what-if only.</p>
+<p class="src">Source: ${f}. Sum of hours_after_2300. What-if: for each week, week_pool_eur × (points_per_hour × hours) ÷ (sum over all staff of points_per_hour × hours), summed, minus your tip_payout_eur.</p></section>
+<section><h2>Compare with groups of 3 or more</h2>
+<p>${gl("Servers", gs)}.<br>${gl("Chefs", gc)}.</p>
+<p>${own.hide ? `Your own role has fewer than 3 people, so we do not show a role figure. That would point at a person.` : `Your role has ${own.n} people. It is shown above.`} Floor manager, bar and kitchen porter are not shown for the same reason.</p>
+<p class="src">Source: payouts.csv, role = server (${gs.rows} rows) or chef (${gc.rows} rows), weeks 1 to 12. Sum of tip_payout_eur ÷ sum of (hours − hours_after_2300). A role is shown only if it has 3 or more different staff_id.</p></section>
+<section><h2>The service charge</h2><div class="big">${E(sc)}</div>
+<p>On tables of six or more, Halloran's adds 12.5%. It is <b>not</b> part of the tips. In ${scDays} of ${T.length} days it was paid to <b>${[...new Set(T.filter(r => r.service_charge_paid_to).map(r => r.service_charge_paid_to))].join(", ")}</b> (Halloran's). The card tips pool was ${E(tips)}.</p>
+<p class="src">Source: takings.csv, all ${T.length} rows. Sum of service_charge_eur, service_charge_paid_to = house on ${scDays} days. Card tips: sum of card_tips_eur.</p></section>
+<section><h2>How your tips are worked out</h2>
+<p>Each week, all card tips go in one pool. You earn points for each hour. Your tips = pool × your points ÷ everyone's points.</p>
+<div class="wrap"><table><tr><th>Role</th><th>Points per hour</th></tr><tr><td>Floor manager</td><td>1.5</td></tr><tr><td>Server</td><td>1.0</td></tr><tr><td>Bar</td><td>1.0</td></tr><tr><td>Chef</td><td>0.5</td></tr><tr><td>Kitchen porter</td><td>0.25</td></tr></table></div>
+<p>Hours after 23:00 earn no points.</p><p class="src">Source: README.md, "Halloran's split rule". The owner is not in the pool.</p></section>
+<section><h2>Week by week</h2><div class="wrap"><table><tr><th>Week</th><th>Hours</th><th>After 23:00</th><th>Tips</th></tr>
+${rows.map(r => `<tr><td>${r.week}</td><td>${N(r.hours)}</td><td>${N(r.hours_after_2300)}</td><td>${E(N(r.tip_payout_eur))}</td></tr>`).join("")}</table></div>
+<p class="src">Source: ${f}.</p></section>`;
+      showConcerns();
+    }
+
+    const key = () => "sciar-concerns-" + sel.value;
+    function load() { try { return JSON.parse(localStorage.getItem(key()) || "[]"); } catch (e) { return []; } }
+    function save(a) { try { localStorage.setItem(key(), JSON.stringify(a)); return true; } catch (e) { return false; } }
+    function showConcerns() {
+      const l = document.getElementById("list");
+      l.innerHTML = "";
+      const a = load();
+      if (!a.length) { l.textContent = "You have not sent anything yet."; return; }
+      a.forEach(c => {
+        const d = document.createElement("div"); d.className = "c";
+        const h = document.createElement("b"); h.textContent = `${c.ref} · ${c.topic} · ${c.date}`;
+        const p = document.createElement("p"); p.textContent = c.text;
+        const s = document.createElement("small"); s.textContent = `Status: saved in this browser (demo, not sent). Sciar would see: ${c.named ? "your name" : '"a staff member"'}. The owner and floor manager would not see it.`;
+        const b = document.createElement("button"); b.className = "ghost"; b.textContent = "Withdraw";
+        b.onclick = () => { save(load().filter(x => x.ref !== c.ref)); showConcerns(); };
+        d.append(h, p, s, document.createElement("br"), b);
+        l.appendChild(d);
+      });
+    }
+
+    document.getElementById("send").onclick = () => {
+      const t = document.getElementById("txt").value.trim();
+      if (!t) { document.getElementById("txt").focus(); return; }
+      const a = load(), c = {
+        ref: "C" + String(a.length + 1).padStart(3, "0"),
+        topic: document.getElementById("topic").value,
+        text: t,
+        named: document.getElementById("named").checked,
+        date: new Date().toLocaleString("en-IE")
+      };
+      a.push(c);
+      if (!save(a)) { alert("This browser would not save the note."); return; }
+      document.getElementById("txt").value = "";
+      showConcerns();
+    };
+    sel.onchange = render;
+    render();
+  </script>
+</body>
+</html>
