@@ -1,7 +1,5 @@
-Live site: https://YOUR-USERNAME.github.io/YOUR-REPO/
-Repository: https://github.com/YOUR-USERNAME/YOUR-REPO
-
-**Question:** Can the least powerful worker see how their tip payout is worked out, and raise a concern without exposing themselves?
+Live site: https://luffyland546.github.io/sciartips/
+Repository: https://github.com/Luffyland546/sciartips/
 
 ## Part 1: The people
 
@@ -33,7 +31,9 @@ Repository: https://github.com/YOUR-USERNAME/YOUR-REPO
 
 ## Part 4c: The Struggle (no AI)
 
-[Write 100–150 words yourself without AI. Include: what you tried, what broke, one AI output you checked or corrected, what you would do differently, and at least one real Git commit hash from your repo.]
+I initially trusted the AI's confident statistics from 05-market-scan.md until I spotted "No sources were attached" and watched the AI loop endlessly until my Claude credits ran out. I changed my text to rely only on verified figures from payouts.csv and takings.csv.
+
+When building the site for GitHub Pages (luffyland546.github.io/sciartips/), I first tried loading the data directly from the CSV files, which broke the page because relative file paths failed on the live site and the layout squished on phone screens. I fixed this by linking the JavaScript data files (payouts.js and takings.js) and adjusting the CSS so the tables stacked properly on mobile. I also had to manually verify the post-23:00 shift hours in payouts.csv because the AI got stuck in a repetitive loop asking me to re-upload files I had already shared, burning through all my Claude tokens without giving a clear answer. If I started again, I would test my live GitHub Pages link much earlier and verify the CSV data myself first. You can see my fix in commit 21193b6.
 
 ---
 Assumptions and notes: all figures come from `data/` (`payouts.csv`, 152 rows; `takings.csv`, 72 rows). The staff view picker is a demo only. Concerns are saved in the browser, not sent. The landing page makes no legal claim. AI sessions are in `ai-log/`.
